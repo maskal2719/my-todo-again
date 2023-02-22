@@ -33,18 +33,18 @@ const TodoList: FC<TodoListPropsType> = ({
         setErr('')
     }
     const onClickAddTaskHandler = () => {
-        if (inputValue.trim() !== '') {
+        if (inputValue.trim() !== '' && inputValue.length < 20) {
             addTask(inputValue.trim())
             setInputValue('')
         } else {
-            setErr('Ошибка! Поле не может быть пустым!')
+            setErr('Ошибка! Поле не может быть пустым !')
         }
     }
     const onKeyPressAddTaskHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         event.key === 'Enter' && onClickAddTaskHandler()
     }
 
-    const isAddBtnDisabled = inputValue.length < 3 || inputValue.length > 15
+    const isAddBtnDisabled = inputValue.length < 3 || inputValue.length > 20
 
 
     return (
@@ -63,7 +63,7 @@ const TodoList: FC<TodoListPropsType> = ({
                     callBack={onClickAddTaskHandler}
                     btnName={'+'}
                 />
-                <div className={'errMsg'}>{err}</div>
+                {err && <div className={'errMsg'}>{err}</div>}
             </div>
             <ul>
                 <TasksList
