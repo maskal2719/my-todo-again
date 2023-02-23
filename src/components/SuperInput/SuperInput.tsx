@@ -3,15 +3,16 @@ import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, ReactNod
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement>
 
-type SuperInputTextPropsType = Omit<DefaultInputPropsType, 'type'> & {
+type SuperInputTextPropsType = DefaultInputPropsType & {
     onChangeText?: (value: string) => void
     onEnter?: () => void
     error?: ReactNode
+    type: string
     spanClassName?: string
 }
 
 
-const SuperInput: FC<SuperInputTextPropsType> = ({onEnter, onChange,onChangeText,onKeyPress, ...restProps}) => {
+const SuperInput: FC<SuperInputTextPropsType> = ({onEnter, onChange,onChangeText,onKeyPress,type, ...restProps}) => {
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange?.(e)
@@ -27,7 +28,7 @@ const SuperInput: FC<SuperInputTextPropsType> = ({onEnter, onChange,onChangeText
 
     return (
         <input
-            type={'text'}
+            type={type}
             onChange={onChangeCallback}
             onKeyPress={onKeyPressCallback}
             {...restProps}

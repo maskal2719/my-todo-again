@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC, useState} from 'react';
 import SuperButton from "../SuperButton/SuperButton";
 import TasksList from "../TasksList/TasksList";
 import {FilterType, TaskDataType} from "../../App";
+import SuperInput from "../SuperInput/SuperInput";
 
 type TodoListPropsType = {
     todoListTitle: string
@@ -51,12 +52,18 @@ const TodoList: FC<TodoListPropsType> = ({
         <div className={'todo'}>
             <h3>{todoListTitle}</h3>
             <div>
-                <input
-                    className={err ? 'errInput' : ''}
-                    value={inputValue}
-                    onChange={setInputValueChange}
-                    type="text"
-                    onKeyUp={onKeyPressAddTaskHandler}
+                {/*<input*/}
+                {/*    className={err ? 'errInput' : ''}*/}
+                {/*    value={inputValue}*/}
+                {/*    onChange={setInputValueChange}*/}
+                {/*    type="text"*/}
+                {/*    onKeyUp={onKeyPressAddTaskHandler}*/}
+                {/*/>*/}
+                <SuperInput type={"text"}
+                            value={inputValue}
+                            onChange={setInputValueChange}
+                            onKeyUp={onKeyPressAddTaskHandler}
+                            className={err ? 'errInput' : ''}
                 />
                 <SuperButton
                     disabled={isAddBtnDisabled}

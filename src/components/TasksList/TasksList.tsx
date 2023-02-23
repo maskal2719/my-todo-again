@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FC} from 'react';
 import {TaskDataType} from "../../App";
 import SuperButton from "../SuperButton/SuperButton";
+import SuperInput from "../SuperInput/SuperInput";
 
 type TasksList = {
     todoListTasks: TaskDataType[]
@@ -20,7 +21,8 @@ const TasksList: FC<TasksList> = ({todoListTasks, removeTask, changeStatus}) => 
 
             return (
                 <li key={task.id}>
-                    <input onChange={onChangeTasksStatusHandler} checked={task.isDone} type="checkbox"/>
+                    {/*<input onChange={onChangeTasksStatusHandler} checked={task.isDone} type="checkbox"/>*/}
+                    <SuperInput type={"checkbox"} checked={task.isDone} onChange={onChangeTasksStatusHandler}/>
                     <span className={taskStatus}>{task.title}</span>
                     <SuperButton btnName={'x'} callBack={removeTaskHandler}/>
                 </li>
