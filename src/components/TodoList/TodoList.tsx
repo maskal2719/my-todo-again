@@ -7,11 +7,13 @@ import SuperInput from "../SuperInput/SuperInput";
 type TodoListPropsType = {
     todoListTitle: string
     todoListTasks: TaskDataType[]
-    changeFilter: (filter: FilterType) => void
-    removeTask: (id: string) => void
-    addTask: (title: string) => void
-    changeStatus: (id: string, isDone: boolean) => void
+    changeFilter: (todolistId: string, filter: FilterType) => void
+    removeTask: (todolistId: string, id: string) => void
+    addTask: (todolistId: string, title: string) => void
+    changeStatus: (todolistId: string, id: string, isDone: boolean) => void
     filter: FilterType
+    todolistId: string
+    removeTodolist: (todolistId: string) => void
 }
 
 const TodoList: FC<TodoListPropsType> = ({
@@ -21,13 +23,15 @@ const TodoList: FC<TodoListPropsType> = ({
                                              removeTask,
                                              addTask,
                                              changeStatus,
-                                             filter
+                                             filter,
+                                             todolistId,
+                                             removeTodolist
                                          }) => {
 
     const [inputValue, setInputValue] = useState('')
     const [err, setErr] = useState<string | null>(null)
     const setFilter = (filter: FilterType) => {
-        changeFilter(filter)
+        changeFilter(todolistId, filter)
     }
     const setInputValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.currentTarget.value)
@@ -35,7 +39,7 @@ const TodoList: FC<TodoListPropsType> = ({
     }
     const onClickAddTaskHandler = () => {
         if (inputValue.trim() !== '' && inputValue.length < 20) {
-            addTask(inputValue.trim())
+            addTask(todolistId, inputValue.trim())
             setInputValue('')
         } else {
             setErr('Ошибка! Поле не может быть пустым !')
@@ -50,7 +54,7 @@ const TodoList: FC<TodoListPropsType> = ({
 
     return (
         <div className={'todo'}>
-            <h3>{todoListTitle}</h3>
+            <h3>{todoListTitle} <SuperButton btnName={'x'} callBack={()=> removeTodolist(todolistId)}/></h3>
             <div>
                 {/*<input*/}
                 {/*    className={err ? 'errInput' : ''}*/}
@@ -74,6 +78,7 @@ const TodoList: FC<TodoListPropsType> = ({
             </div>
             <ul>
                 <TasksList
+                    todolistId={todolistId}
                     todoListTasks={todoListTasks}
                     removeTask={removeTask}
                     changeStatus={changeStatus}

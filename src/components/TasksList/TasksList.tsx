@@ -5,17 +5,18 @@ import SuperInput from "../SuperInput/SuperInput";
 
 type TasksList = {
     todoListTasks: TaskDataType[]
-    removeTask: (id: string) => void
-    changeStatus: (id: string, isDone: boolean) => void
+    removeTask: (todolistId: string,id: string) => void
+    changeStatus: (todolistId:string, id: string, isDone: boolean) => void
+    todolistId: string
 }
-const TasksList: FC<TasksList> = ({todoListTasks, removeTask, changeStatus}) => {
+const TasksList: FC<TasksList> = ({todoListTasks, removeTask, changeStatus, todolistId}) => {
 
     let tasks = todoListTasks.length
         ? todoListTasks.map((task) => {
 
-            const removeTaskHandler = () => removeTask(task.id)
+            const removeTaskHandler = () => removeTask(todolistId,task.id)
             const onChangeTasksStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                changeStatus(task.id, e.currentTarget.checked)
+                changeStatus(todolistId,task.id, e.currentTarget.checked)
             }
             let taskStatus = task.isDone ? 'completeTask' : 'activeTask';
 
