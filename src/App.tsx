@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from "./components/TodoList/TodoList";
 import {v1} from "uuid";
+import SuperInput from "./components/SuperInput/SuperInput";
+import SuperButton from "./components/SuperButton/SuperButton";
 
 export type TaskDataType = {
     id: string
