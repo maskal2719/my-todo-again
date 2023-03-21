@@ -20,7 +20,33 @@ export type FilterType = 'all' | 'active' | 'completed'
 
 function App() {
     // Стейты-----------------------------------------------------------
+    let todolistId1 = v1()
+    let todolistId2 = v1()
 
+    let [todolists, setTodolists] = useState<Array<TodolistType>>([
+            {id: todolistId1, title: 'What to learn', filter: 'active'},
+            {id: todolistId2, title: 'What to buy', filter: 'completed'}
+        ])
+    let [tasksObj, setTasks] = useState({
+        [todolistId1]: [
+            {id: v1(), title: 'Html', isDone: true},
+            {id: v1(), title: 'Css', isDone: true},
+            {id: v1(), title: 'Js', isDone: false},
+            {id: v1(), title: 'Ts', isDone: false},
+            {id: v1(), title: 'Angular', isDone: true},
+            {id: v1(), title: 'React', isDone: false},
+            {id: v1(), title: 'Redux', isDone: false},
+        ],
+        [todolistId2]: [
+            {id: v1(), title: 'Яйца', isDone: true},
+            {id: v1(), title: 'Хлеб', isDone: true},
+            {id: v1(), title: 'Картофель', isDone: false},
+            {id: v1(), title: 'Гречка', isDone: false},
+            {id: v1(), title: 'Мясо', isDone: true},
+            {id: v1(), title: 'Рыба', isDone: false},
+            {id: v1(), title: 'Овощи', isDone: false},
+        ],
+    })
     // Стейты-----------------------------------------------------------
 
 
@@ -56,38 +82,6 @@ function App() {
     }
 
     //Функции обработки-----------------------------------------------
-
-    let todolistId1 = v1()
-    let todolistId2 = v1()
-
-    let [todolists, setTodolists] = useState<Array<TodolistType>>(
-        [
-            {id: todolistId1, title: 'What to learn', filter: 'active'},
-            {id: todolistId2, title: 'What to buy', filter: 'completed'}
-        ]
-    )
-
-    let [tasksObj, setTasks] = useState({
-        [todolistId1]: [
-            {id: v1(), title: 'Html', isDone: true},
-            {id: v1(), title: 'Css', isDone: true},
-            {id: v1(), title: 'Js', isDone: false},
-            {id: v1(), title: 'Ts', isDone: false},
-            {id: v1(), title: 'Angular', isDone: true},
-            {id: v1(), title: 'React', isDone: false},
-            {id: v1(), title: 'Redux', isDone: false},
-        ],
-        [todolistId2]: [
-            {id: v1(), title: 'Яйца', isDone: true},
-            {id: v1(), title: 'Хлеб', isDone: true},
-            {id: v1(), title: 'Картофель', isDone: false},
-            {id: v1(), title: 'Гречка', isDone: false},
-            {id: v1(), title: 'Мясо', isDone: true},
-            {id: v1(), title: 'Рыба', isDone: false},
-            {id: v1(), title: 'Овощи', isDone: false},
-        ],
-    })
-
     const addTodolist = (newTitle: string) => {
         const newId = v1()
         let newTodoList: TodolistType = {id: newId, title: newTitle, filter: 'all'}
