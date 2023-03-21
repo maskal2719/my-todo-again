@@ -2,14 +2,16 @@ import React, {ChangeEvent, FC} from 'react';
 import {TaskDataType} from "../../App";
 import SuperButton from "../SuperButton/SuperButton";
 import SuperInput from "../SuperInput/SuperInput";
+import EditableSpan from "../EditableSpan/EditableSpan";
 
 type TasksList = {
     todoListTasks: TaskDataType[]
     removeTask: (todolistId: string,id: string) => void
     changeStatus: (todolistId:string, id: string, isDone: boolean) => void
     todolistId: string
+    updateTaskTitle: (title: string, todolistId: string, taskId: string) => void
 }
-const TasksList: FC<TasksList> = ({todoListTasks, removeTask, changeStatus, todolistId}) => {
+const TasksList: FC<TasksList> = ({todoListTasks, removeTask, changeStatus, todolistId, updateTaskTitle}) => {
 
     let tasks = todoListTasks.length
         ? todoListTasks.map((task) => {
@@ -24,7 +26,8 @@ const TasksList: FC<TasksList> = ({todoListTasks, removeTask, changeStatus, todo
                 <li key={task.id}>
                     {/*<input onChange={onChangeTasksStatusHandler} checked={task.isDone} type="checkbox"/>*/}
                     <SuperInput type={"checkbox"} checked={task.isDone} onChange={onChangeTasksStatusHandler}/>
-                    <span className={taskStatus}>{task.title}</span>
+                    {/*<span className={taskStatus}>{task.title}</span>*/}
+                    <EditableSpan oldTitle={task.title} callBack={(title: string) => updateTaskTitle(title, todolistId, task.id)}/>
                     <SuperButton btnName={'x'} callBack={removeTaskHandler}/>
                 </li>
             )

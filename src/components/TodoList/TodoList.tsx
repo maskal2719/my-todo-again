@@ -4,6 +4,7 @@ import TasksList from "../TasksList/TasksList";
 import {FilterType, TaskDataType} from "../../App";
 import SuperInput from "../SuperInput/SuperInput";
 import AddItemForm from "../AddItemForm/AddItemForm";
+import EditableSpan from "../EditableSpan/EditableSpan";
 
 type TodoListPropsType = {
     todoListTitle: string
@@ -15,6 +16,8 @@ type TodoListPropsType = {
     filter: FilterType
     todolistId: string
     removeTodolist: (todolistId: string) => void
+    updateTaskTitle: (title: string, todolistId: string, taskId: string) => void
+    updateTodolistTitle: (title: string, todolistId: string) => void
 }
 
 const TodoList: FC<TodoListPropsType> = ({
@@ -26,7 +29,9 @@ const TodoList: FC<TodoListPropsType> = ({
                                              changeStatus,
                                              filter,
                                              todolistId,
-                                             removeTodolist
+                                             removeTodolist,
+                                             updateTaskTitle,
+                                             updateTodolistTitle
                                          }) => {
 
     const setFilter = (filter: FilterType) => {
@@ -38,14 +43,17 @@ const TodoList: FC<TodoListPropsType> = ({
 
     return (
         <div className={'todo'}>
-            <h3>{todoListTitle} <SuperButton btnName={'x'} callBack={()=> removeTodolist(todolistId)}/></h3>
-            <AddItemForm callBack={addTaskHandler} />
+            <EditableSpan oldTitle={todoListTitle}
+                          callBack={(title: string) => updateTodolistTitle(title, todolistId)}/><SuperButton btnName={'x'}
+                                                                                                        callBack={() => removeTodolist(todolistId)}/>
+            <AddItemForm callBack={addTaskHandler}/>
             <ul>
                 <TasksList
                     todolistId={todolistId}
                     todoListTasks={todoListTasks}
                     removeTask={removeTask}
                     changeStatus={changeStatus}
+                    updateTaskTitle={updateTaskTitle}
                 />
             </ul>
             <div className={'filterBtns'}>
