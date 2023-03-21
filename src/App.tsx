@@ -4,6 +4,7 @@ import TodoList from "./components/TodoList/TodoList";
 import {v1} from "uuid";
 import SuperInput from "./components/SuperInput/SuperInput";
 import SuperButton from "./components/SuperButton/SuperButton";
+import AddItemForm from "./components/AddItemForm/AddItemForm";
 
 export type TaskDataType = {
     id: string
@@ -32,21 +33,24 @@ function App() {
         // setTodolists([...todolists])
         setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, filter: filter} : tl))
     }
-    const removeTask = (todolistId: string,id: string) => {
-        setTasks({...tasksObj,[todolistId]: tasksObj[todolistId].filter(t=> t.id !== id)})
+    const removeTask = (todolistId: string, id: string) => {
+        setTasks({...tasksObj, [todolistId]: tasksObj[todolistId].filter(t => t.id !== id)})
     }
-    const addTask = (todolistId: string,title: string) => {
+    const addTask = (todolistId: string, title: string) => {
         let newTask = {id: v1(), title: title, isDone: false};
-        setTasks({...tasksObj,[todolistId]: [newTask, ...tasksObj[todolistId]]})
+        setTasks({...tasksObj, [todolistId]: [newTask, ...tasksObj[todolistId]]})
     }
-    const changeStatus = (todolistId: string,id: string, isDone: boolean) => {
+    const changeStatus = (todolistId: string, id: string, isDone: boolean) => {
         // let task = tasks.find(task => task.id === id);
         // if (task) {
         //     task.isDone = isDone
         //     setTasks([...tasks])
         // }
         // setTasks(tasks.map(task => task.id === id ? {...task, isDone: isDone} : task))
-        setTasks( {...tasksObj,[todolistId]: tasksObj[todolistId].map(task => task.id === id ? {...task, isDone: isDone} : task)})
+        setTasks({
+            ...tasksObj,
+            [todolistId]: tasksObj[todolistId].map(task => task.id === id ? {...task, isDone: isDone} : task)
+        })
     }
     const removeTodolist = (todolistId: string) => {
         setTodolists(todolists.filter(tl => tl.id !== todolistId))
@@ -87,8 +91,16 @@ function App() {
         ],
     })
 
+    const addTodolist = (newTitle: string) => {
+        const newId = v1()
+        let newTodoList: TodolistType = {id: newId, title: newTitle, filter: 'all'}
+        setTodolists([newTodoList, ...todolists])
+        setTasks({...tasksObj, [newId]: []})
+    }
+
     return (
         <div className="App">
+            <AddItemForm callBack={addTodolist}/>
             {todolists.map((tl) => {
                 const filterTask = (tasks: TaskDataType[], filter: FilterType) => {
                     if (tl.filter === 'active') {
