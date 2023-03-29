@@ -4,16 +4,16 @@ import SuperButton from "../SuperButton/SuperButton";
 import SuperInput from "../SuperInput/SuperInput";
 import EditableSpan from "../EditableSpan/EditableSpan";
 
-type TasksList = {
+type TasksListType = {
     todoListTasks: TaskDataType[]
     removeTask: (todolistId: string,id: string) => void
     changeStatus: (todolistId:string, id: string, isDone: boolean) => void
     todolistId: string
     updateTaskTitle: (title: string, todolistId: string, taskId: string) => void
 }
-const TasksList: FC<TasksList> = ({todoListTasks, removeTask, changeStatus, todolistId, updateTaskTitle}) => {
+const TasksList: FC<TasksListType> = ({todoListTasks, removeTask, changeStatus, todolistId, updateTaskTitle}) => {
 
-    let tasks = todoListTasks.length
+    let tasks = todoListTasks
         ? todoListTasks.map((task) => {
 
             const removeTaskHandler = () => removeTask(todolistId,task.id)

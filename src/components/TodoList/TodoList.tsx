@@ -2,7 +2,6 @@ import React, {ChangeEvent, FC, useState} from 'react';
 import SuperButton from "../SuperButton/SuperButton";
 import TasksList from "../TasksList/TasksList";
 import {FilterType, TaskDataType} from "../../App";
-import SuperInput from "../SuperInput/SuperInput";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import EditableSpan from "../EditableSpan/EditableSpan";
 

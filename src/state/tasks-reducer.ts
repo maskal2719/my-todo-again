@@ -4,8 +4,9 @@ import {v1} from "uuid";
 type ActionsType =
     ReturnType<typeof RemoveTaskAC> |
     ReturnType<typeof AddTaskAC> |
-    ReturnType<typeof changeStatusAC> |
-    ReturnType<typeof updateTaskTitleAC>
+    ReturnType<typeof ChangeStatusAC> |
+    ReturnType<typeof UpdateTaskTitleAC> |
+    ReturnType<typeof AddNewTasksArrayAC>
 
 export const TasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
     switch (action.type) {
@@ -41,6 +42,12 @@ export const TasksReducer = (state: TasksStateType, action: ActionsType): TasksS
                 } : el)
             }
         }
+        case "ADD_NEW_TASKS_ARRAY": {
+            return {
+                ...state,
+                [action.payload.todolistId] : []
+            }
+        }
         default :
             throw new Error('I don\'t understand this type')
     }
@@ -64,7 +71,7 @@ export const AddTaskAC = (todolistId: string, title: string) => {
         }
     } as const
 }
-export const changeStatusAC = (todolistId: string, id: string, isDone: boolean) => {
+export const ChangeStatusAC = (todolistId: string, id: string, isDone: boolean) => {
     return {
         type: 'CHANGE_TASK_STATUS',
         payload: {
@@ -74,13 +81,21 @@ export const changeStatusAC = (todolistId: string, id: string, isDone: boolean) 
         }
     } as const
 }
-export const updateTaskTitleAC = (todolistId: string, title: string, id: string) => {
+export const UpdateTaskTitleAC = (todolistId: string, title: string, id: string) => {
     return {
         type: 'UPDATE_TASK_TITLE',
         payload: {
             todolistId,
             title,
             id
+        }
+    } as const
+}
+export const AddNewTasksArrayAC = (todolistId: string) => {
+    return {
+        type: 'ADD_NEW_TASKS_ARRAY',
+        payload: {
+            todolistId
         }
     } as const
 }
