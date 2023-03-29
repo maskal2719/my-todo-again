@@ -2,8 +2,6 @@ import React, {useReducer, useState} from 'react';
 import './App.css';
 import TodoList from "./components/TodoList/TodoList";
 import {v1} from "uuid";
-import SuperInput from "./components/SuperInput/SuperInput";
-import SuperButton from "./components/SuperButton/SuperButton";
 import AddItemForm from "./components/AddItemForm/AddItemForm";
 import {
     AddTodolistAC,
@@ -24,7 +22,9 @@ export type TodolistType = {
     filter: FilterType
 }
 export type FilterType = 'all' | 'active' | 'completed'
-
+export type TasksStateType = {
+    [key: string] :TaskDataType[]
+}
 function App() {
     // Стейты-----------------------------------------------------------
     let todolistId1 = v1()
@@ -35,7 +35,7 @@ function App() {
         {id: todolistId1, title: 'What to learn', filter: 'active'},
         {id: todolistId2, title: 'What to buy', filter: 'completed'}
     ])
-    let [tasksObj, setTasks] = useState({
+    let [tasksObj, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
             {id: v1(), title: 'Html', isDone: true},
             {id: v1(), title: 'Css', isDone: true},
