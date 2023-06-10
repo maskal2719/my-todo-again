@@ -1,4 +1,6 @@
 import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, ReactNode} from 'react';
+import {TextField} from "@mui/material";
+import {Simulate} from "react-dom/test-utils";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement>
@@ -27,11 +29,14 @@ const SuperInput: FC<SuperInputTextPropsType> = ({onEnter, onChange,onChangeText
     }
 
     return (
-        <input
-            type={type}
+        <TextField
+            variant={"outlined"}
             onChange={onChangeCallback}
             onKeyPress={onKeyPressCallback}
-            {...restProps}
+            type={type}
+            value={restProps.value}
+            onBlur={restProps.onBlur}
+            autoFocus
         />
     );
 };

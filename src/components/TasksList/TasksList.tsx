@@ -3,6 +3,7 @@ import {TaskDataType} from "../../App";
 import SuperButton from "../SuperButton/SuperButton";
 import SuperInput from "../SuperInput/SuperInput";
 import EditableSpan from "../EditableSpan/EditableSpan";
+import {Checkbox} from "@mui/material";
 
 type TasksListType = {
     todoListTasks: TaskDataType[]
@@ -23,10 +24,8 @@ const TasksList: FC<TasksListType> = ({todoListTasks, removeTask, changeStatus, 
             let taskStatus = task.isDone ? 'completeTask' : 'activeTask';
 
             return (
-                <li key={task.id}>
-                    {/*<input onChange={onChangeTasksStatusHandler} checked={task.isDone} type="checkbox"/>*/}
-                    <SuperInput type={"checkbox"} checked={task.isDone} onChange={onChangeTasksStatusHandler}/>
-                    {/*<span className={taskStatus}>{task.title}</span>*/}
+                <li key={task.id} className={taskStatus}>
+                    <Checkbox checked={task.isDone} onChange={onChangeTasksStatusHandler}/>
                     <EditableSpan oldTitle={task.title} callBack={(title: string) => updateTaskTitle(title, todolistId, task.id)}/>
                     <SuperButton btnName={'x'} callBack={removeTaskHandler}/>
                 </li>
